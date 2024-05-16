@@ -21,7 +21,7 @@ function SimpleDialog(props) {
     alert("add Target")
     alert(nameTarget)
     alert(valueTarget)
-    const res = await axios.put(`http://localhost:9000/links/AddTarget`,{"id":idd,"newname":nameTarget,"newvalue":valueTarget})
+    const res = await axios.put(`http://localhost:9000/links/AddTarget`,{headers:{authorization:localStorage.getItem('accessToken')},"id":idd,"newname":nameTarget,"newvalue":valueTarget})
     alert(res.data)
   }
   return (

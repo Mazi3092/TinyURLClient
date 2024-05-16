@@ -42,14 +42,17 @@ export default class Users extends React.Component{
                 <div className="paper" id="tt">
       <TableContainer sx={{ maxHeight: 440 }}>
          {this.state.urls.length==0?<Typography color="secondary" variant="p">לא נמצאו כתובות<WarningAmberIcon/></Typography>:
-                   <div className="i"> {this.state.urls.map(url=>
+                   <div className="i">{this.state.urls.length}
+                   {this.state.urls.map(url=>
                     <div className="users">
                     <div>
                     <b><p>{url.originalUrl}</p></b><br/>
                     <p> {url.uniqueName}</p> 
+                    <p> {url.id}</p> 
+
                     <Tooltip title="Delete">
                             <IconButton>
-                                <DeleteIcon color="secondary" onClick={()=>del(url._id)}/>
+                                <DeleteIcon color="secondary" onClick={()=>del(url.id)}/>
                             </IconButton>
                         </Tooltip>
                         </div>

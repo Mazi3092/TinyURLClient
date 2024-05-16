@@ -7,7 +7,7 @@ import Scroll from '../try/profile'
 import globalVariableExample from './ll'
 import C from '../picture'
 const navbar = () => {
-          let n = localStorage.getItem('name')
+    let n = localStorage.getItem('name') || 'user'
     return(
         <>  
         <Pic id="pic"/>

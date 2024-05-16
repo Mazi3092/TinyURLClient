@@ -13,15 +13,15 @@ export default class MyUrls extends React.Component{
     state = {
         urls:[]
     }
-    // componentDidMount(){
-    //     axios.get(`http://localhost:9000/links`)
-    //     .then(res=>{
-    //         const urls = res.data;
-    //         this.setState({urls})
-    //     })
-    // }
+    componentDidMount(){
+        axios.get(`http://localhost:9000/links`,{headers:{authorization:localStorage.getItem('accessToken')}})
+        .then(res=>{
+            const urls = res.data;
+            this.setState({urls})
+        })
+    }
     componentDidUpdate(){
-        axios.get(`http://localhost:9000/links`)
+        axios.get(`http://localhost:9000/links`,{headers:{authorization:localStorage.getItem('accessToken')}})
         .then(res=>{
             const urls = res.data;
             this.setState({urls})

@@ -25,14 +25,14 @@ export default class Users extends React.Component{
         links:[],
     }
     componentDidMount(){
-        axios.get(`http://localhost:9000/users`)
+        axios.get(`http://localhost:9000/users`,{headers:{authorization: localStorage.getItem('accessToken')}})
         .then(res=>{
             const users = res.data;
             this.setState({users})
         })
     }
     componentDidUpdate(){
-        axios.get(`http://localhost:9000/users`)
+        axios.get(`http://localhost:9000/users`,{headers:{authorization: localStorage.getItem('accessToken')}})
         .then(res=>{
             const users = res.data;
             this.setState({users})

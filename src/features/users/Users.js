@@ -9,10 +9,11 @@ import { updateUser } from "./UsersSlice";
 
 export const SignIn = () => {
     let dispatch = useDispatch()
-    const{register,handleSubmit, watch} = useForm()
-    const checkUser = async() => {
+    const{register,handleSubmit, watch,reset} = useForm()
+    const checkUser = async(data) => {
         let name = watch("name")
         let password = watch("password")
+        reset()
         alert(name + ' ' + password)
       let url = 'http://localhost:9000/login/users/check'
       alert('j')
@@ -37,11 +38,12 @@ export const SignIn = () => {
     )}
    export const SignUp = () =>{
     let dispatch = useDispatch()
-        const { register, handleSubmit,watch,setError, formState: { errors } } = useForm();
+        const { register, handleSubmit,watch,setError, formState: { errors } ,reset} = useForm();
         const addUser = async () => {
           let name = watch("firstName")
           let email = watch("email")
           let password = watch("password")
+          reset()
           alert(name + ' ' + email + ' ' + password)
           const res = await axios.post("http://localhost:9000/signUp/users",{"name":name,"email":email , "password":password})
           alert(res.data.token)
