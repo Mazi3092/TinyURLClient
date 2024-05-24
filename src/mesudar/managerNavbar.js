@@ -1,16 +1,13 @@
 import { Button, ButtonGroup, Typography } from "@mui/material"
 import {Link} from "react-router-dom"
 import '../style.css'
-import Pic from '../picture'
-import logo from './log.jpg';
+import logo from '../arranged/log.jpg';
 import Scroll from '../try/profile'
-import globalVariableExample from './ll'
-import C from '../picture'
+import globalVariableExample from './ll.js'
 import { useEffect, useState } from "react";
-import Mailbox from './mailbox'
-import NewTry from './newTry.js'
-import Navv from '../navv.js';
-import UserForm from '../try/form.js';
+import Mailbox from './mail.js'
+import Navv from './general.js';
+import AdvertisingForm from '../arranged/AdvertisingForm.js';
 
 const Navbar = () => {
     // let name = localStorage.getItem('name') || 'user'
@@ -36,38 +33,28 @@ const Navbar = () => {
   }, []);
     return(
         <>  
-          <div id="header">
-        <nav>
-             <Navv/>
-      
+        <Navv/>
         {/* <Mailbox/> */}
-        {/* <Pic s={profile} id="pic"/> */}
           <div id = "l">
         <ButtonGroup id="w" color="secondary" variant='contained'>
-            <Button><Link to="/home">home</Link></Button>
-            <Button><Link to="/app">App</Link></Button>
-            {/* <Button><Link to="/signup">sign up</Link></Button>
-            <Button><Link to="/signin">sign in</Link></Button> */}
+        <Button><Link to="/full">full</Link></Button>
             <Button><Link to="/usersAndLinks">users & Links</Link></Button>
             <Button><Link to="/users">users</Link></Button>
             <Button><Link to="/allUrls">all Urls</Link></Button>
-            <Button><Link to="/full">full</Link></Button>
             <Button><Link to="/myUrls">myUrls</Link></Button>
+            <Button><Link to="/barChart">graph all my links</Link></Button> 
             <Button><Link to="/graph">graph</Link></Button>
             <Button><Link to="/advertiser">advertiser</Link></Button>
-            <Button><Link to="/userForm">userForm</Link></Button>
             <Button><Link to="/advertisingLinks">advertisingLinks</Link></Button>
+            <Button><Link to="/mailbox">mailbox</Link></Button> 
+            
+            <Button><Link to="/check">check</Link></Button> 
             <Button><Link to="/dialog">dialog</Link></Button> 
-            <Button><Link to="/imoji">imoji</Link></Button> 
-            <Button><Link to="/newTry">newTry</Link></Button> 
+
         </ButtonGroup>
         </div>
-        <UserForm/>
-        </nav>
-    </div>
-        <iframe name="iframe_a" src="homepage.html">
-        </iframe>
-        <footer></footer>
+        <AdvertisingForm/>
+
         </>
     )
 }

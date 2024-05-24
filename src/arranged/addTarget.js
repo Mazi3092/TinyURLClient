@@ -18,11 +18,8 @@ function SimpleDialog(props) {
     handleClose()
     const nameTarget = watch("nameTarget")
     const valueTarget = watch("valueTarget")
-    alert("add Target")
-    alert(nameTarget)
-    alert(valueTarget)
     const res = await axios.put(`http://localhost:9000/links/AddTarget`,{headers:{authorization:localStorage.getItem('accessToken')},"id":idd,"newname":nameTarget,"newvalue":valueTarget})
-    alert(res.data)
+    alert("add Target " + nameTarget + valueTarget + "the link: " + res.data)
   }
   return (
     <Dialog onClose={handleClose} open={open}>

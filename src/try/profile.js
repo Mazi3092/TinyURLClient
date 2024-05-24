@@ -11,8 +11,16 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
+  const name = localStorage.getItem('name')
+  const navigate = useNavigate();
+  const sign = (e) => {
+    navigate('/' + e)
+  };
+  const src = localStorage.getItem('profile')
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -22,6 +30,8 @@ export default function AccountMenu() {
     if(s=='logout')
     {
       localStorage.setItem('accessToken','')
+      localStorage.setItem('name','user')
+      localStorage.setItem('profile','')
     }
     setAnchorEl(null);
   };
@@ -32,16 +42,18 @@ export default function AccountMenu() {
         <Typography sx={{ minWidth: 100 }}>Profile</Typography>  */}
           <Tooltip title="Account settings">
           <IconButton
-            onClick={handleClick}
+            // onClick={handleClick}
+            onMouseOver={handleClick}
             size="small"
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar src={src} sx={{ width: 32, height: 32 }}></Avatar>    
           </IconButton>
         </Tooltip>
+  <p>Hi {name}</p>
   </Box>
     <Menu
         anchorEl={anchorEl}
@@ -78,25 +90,30 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-       <MenuItem onClick={handleClose}>
+         <Button onClick={()=>sign('signIn')} type='submit' color="secondary" variant="contained">התחבר</Button><br/>
+         <Button onClick={()=>sign('signUp')} type='submit' color="inherit">להירשם</Button>
+        <Divider />
+       <MenuItem onClick={()=>sign('profile')}>
           <Avatar /> Profile
+          {/* <Pi/> */}
+
         </MenuItem>
      <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar /> My account popopop
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={()=>handleClose('logout')}>
           <ListItemIcon>
             <Logout fontSize="small" />

@@ -1,38 +1,319 @@
 body{
     text-align: center;
-    background-image:url("link.jpg");
+    background-image:url("./arranged/link.jpg");
     background-size: cover;
-    /* background-image:url("link.jpg");
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-attachment: fixed; */
-  /* background-attachment: fixed; */
+    overflow-x: hidden; /* מונע גלילה אופקית */
 }
 a{
     text-decoration: none;
-    /* color: white; */
 }
-h1{
-    font-size: 5vw;
+/* home */
+#space{
+  margin-top: 15px;
 }
-.addLink{
-    height: 50vh;
-    width:30vw;
+.add-link{
+    height: 45vh;
+    width:25vw;
     text-align: left;
     border-style: solid;
-    border-radius: 50px;
-    background-color: transparent;
+    border-radius: 20px;
+    /* background-color: transparent; */
+    background-color: rgb(192, 192, 192);
     padding: 20px; 
     margin-left: 100px;
     margin-bottom: 100px;
 }
+#url-copy{
+  background-color: grey;
+  border-style: solid;
+  border-radius: 5px;
+}
+/* AdvertisingForm */
+.advertising-form{
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+/* סגנון לכפתור הפתיחה */
+.open-form-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+}
+/* סגנון לטופס הפופ-אפ */
+.form-popup {
+  display: block;
+  position: fixed;
+  bottom: 80px; /* קצת מעל האייקון */
+  left: 20px;
+  border: 3px solid #f1f1f1;
+  z-index: 999;
+  width: 400px; /* הרחבנו את הטופס */
+  max-height: 75%; /* מגבלה על הגובה */
+  overflow-y: auto; /* גלילה פנימית */
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 10px;
+}
+.text-input-container {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+}
+.text-input {
+  width: 100%;
+  height: 100px;
+    padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+}
+.emoji-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: gray;
+}
+.emoji-picker {
+  /* position: absolute;לשנות כשזה נוגע למפרסמים */
+  top: 50px;
+  left: 10px;
+  z-index: 1000;
+} 
+/* UsersAndLinks */
+#users-and-links-title{
+  margin-top: 25px;
+  /* padding: 30px; */
+  width: 50vw;
+  height: 50px;
+  color: white;
+  background-color: gray;
+}
+.paper{
+  background-color: white;
+  width: 50vw;
+  text-align: center;
+  /* position: absolute; */
+  bottom: 0px;
+  left: 450px;
+}
+.bottom-paper{
+  width: 50vw;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  left: 380px;
+}
+/* users */
+#users-paper{
+  background-color: transparent;
+}
+.padding-top{
+  /* padding: 10px;  */
+}
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom:solid #ddd;
+  width: 30vw;
+  border-style: solid;
+  border-color: white;
+  margin-left: 150px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  display: flex;
+  text-align: right;
+}
+.user-left {
+  display: flex;
+  align-items: center;
+}
+
+.user-left span {
+  margin-left: 10px;
+}
+
+.user-center {
+  flex: 1;
+  text-align: center;
+}
+
+.user-right {
+  display: flex;
+  align-items: center;
+}
+/* all urls */
+#urls{
+  margin-top: 10vh;
+  display: flex;
+  /* justify-content: space-evenly; */
+  flex-wrap: wrap;
+}
+.urls{
+  width: 28vw;
+  height: 28vh;
+  border-style: solid;
+  border-radius: 15px;
+  border-color: gray;
+  margin: 10px;
+}
+/* my urls - כמו בusers */
+/* barChart - גרף כל הקישורים */
+#pie{
+  height: 40vh;
+  width: 40vw;
+}
+.graph-paper{
+  margin-top: 12vh;
+  background-color: transparent;
+  width: 90vw;
+  text-align: center;
+}
+/* advertisers */
+#all-graphs{
+    display: flex;
+    flex-direction: row;
+    width: 5vw;
+    justify-content: space-around;
+    /* flex-wrap: wrap;  */
+}
+.advertisers{
+  width: 30vw;
+    /* height: 25vh; */
+    border-style: solid;
+    /* border-radius: 20px; */
+    border-color: white;
+    margin-left: 150px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    display: flex;
+    text-align: right;
+}
+/* profile */
+#profile{
+  border-radius: 750px;
+  height: 40vh;
+  width: 20vw;
+}
+/* imoji */
+
+.text-input-container button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.text-input-container button:hover {
+  background-color:transparent /* שנה את הצבע כאן בהתאם למה שאתה רוצה */
+}
+
+.emoji-button, .send-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.emoji-button:hover, .send-button:hover {
+  background-color:transparent; /* שנה את הצבע כאן בהתאם למה שאתה רוצה */
+}
+
+.text-input-container .emoji-button:focus, .text-input-container .send-button:focus {
+  outline: none;
+}
+
+.send-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #007BFF;/* צבע כחול לאייקון השליחה  */
+}
+.imoji-div{
+  font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+/* עד כאן  */
+.message-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 10px; */
+  /* border-bottom:solid #ddd; */
+  /* width: 30vw; */
+  border-style: solid;
+  /* border-color: white; */
+  /* margin-left: 150px; */
+  /* margin-bottom: 10px; */
+  margin-top: 30px;
+  text-align: right;
+}
+/* סגנון לטופס */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container input[type=text], .form-container input[type=email], .form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 10px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container input[type=text]:focus, .form-container input[type=email]:focus, .form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.form-container .btn:hover {
+  opacity: 1;
+}
 .all{
     display: flex;
 }
-.App{
-    padding-top: 200px;
-}
+
 .sign{
     height: 60vh;
     width:40vw;
@@ -51,42 +332,16 @@ h1{
     margin-left: 500px;
     margin-top: 150px;
 }
-.users{
-    width: 30vw;
-    /* height: 25vh; */
-    border-style: solid;
-    /* border-radius: 20px; */
-    border-color: white;
-    margin-left: 150px;
-    margin-bottom: 10px;
-    margin-top: 30px;
-    display: flex;
-    text-align: right;
-}
-.bpaper{
-    background-color: white;
-    width: 50vw;
-    text-align: center;
-    position: absolute;
-    bottom: 0px;
-    left: 380px;
-}
-.paper{
-    background-color: white;
-    width: 50vw;
-    text-align: center;
-    /* position: absolute;
-    bottom: 0px; */
-    left: 450px;
-}
-
 .space{
-    /* width: 100px; */
-    margin-left: 150px;
-    /* height: 300px; */
-    /* margin-right: 150px; */
-
+  /* width: 100px; */
+  background-color: #007BFF;
+  margin-left: 150px;
+  /* height: 300px; */
+  /* margin-right: 150px; */
 }
+
+
+
 .mazi{
     width: 300px;
     height: 300px;
@@ -95,34 +350,11 @@ h1{
 #coteret{
     padding: 30px;
 }
-#spa{
-    margin-top: 10px;
-    /* padding: 30px; */
-    border-style: solid;
-    border-bottom: none;
-    width: 50vw;
-    height: 50px;
-    color: white;
-    background-color: gray;
-}
-#tt{
-    background-color: transparent;
-    text-align: center;
-}
-.i{
-    padding: 10px;
-    
-}
-.userss{
-    width: 20vw;
-    border-style: solid;
-    border-radius: 20px;
-    border-color: gray;
-    margin: 10px;
-}
+
+
 #pic{
     position: absolute;
-    top: 150px;
+    top: 10px;
     right: 200px;
 }
 #w{
@@ -154,7 +386,145 @@ h1{
     padding-top: 30px;
   }
   
-#pie{
-    height: 15vh;
-    width: 15vw;
+.App {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+  }
+  .App{
+    /* padding-top: 200px; */
 }
+  .toggle-button {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    /* background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px; */
+  }
+  
+  .sidebar {
+    height: 80vh;
+    position: absolute;
+    top: 50px; /* הגובה של הכפתור */
+    right: 10px; /* מיקום הכפתור */
+    bottom: 0; /* עד התחתית */
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-radius: 5px;
+    overflow-y: 9;
+    z-index: 999;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .new-message-button, .invite-friends-button, .cancel-button, .send-message-button, .close-button {
+    /* width: 100%; */
+    /* padding: 10px; */
+    /* margin-bottom: 10px; */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #f0f0f0; */
+    border: none;
+    border-radius: 5px;
+  }
+  .close-button{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+  .new-message-button:hover, .invite-friends-button:hover, .cancel-button:hover, .send-message-button:hover, .close-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .new-message-icon, .invite-icon {
+    margin-left: 10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+  
+  .new-message {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .send-message-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  #f{
+    width: '20vw';
+    height: '20h';
+
+  }
+  input[type="file"] {
+    display: none;
+  }
+
+  /* סגנון הכפתור המותאם אישית */
+  .custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  
+
+  
+header
+{
+    text-align: center;
+    /* background-image: url(../picture/דף\ הבית/רקע.png); */
+    margin-top: 0%;
+    width: 100%;
+    height: 80%;
+    padding-top: 0px;
+   padding-left: 0%;
+}
+#header
+{
+    width:100vw;height: 5vh;
+}
+/* כל הקישורים בדיב אחד */
+#divhomepage
+{
+   display: flex;
+   justify-content: space-around;
+   background-color: white;
+}
+#divhomepage h2
+{
+    margin-top: 5px;
+} 
+/* maim size */
+iframe
+{
+   width: 100%;
+   height: 70vh;
+}
+

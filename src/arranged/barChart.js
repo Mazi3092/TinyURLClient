@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
-import './style.css'
+import '../style.css'
 
 const BarChart = () => {
   const [chartData, setChartData] = useState({});
@@ -21,12 +21,7 @@ const BarChart = () => {
           names[i] = l.uniqueName
           i++
       });
-      console.log(values)
-      console.log(names)
-
       const data = response.data;
-
-
         if (data) {
           setChartData({
                         // type: 'pie',
@@ -37,18 +32,14 @@ const BarChart = () => {
                 label: 'clicks',
                 data: values,
                 backgroundColor: [
-                  'rgb(255, 99, 132)',
-                  'rgb(54, 162, 235)',
-                  'rgb(255, 205, 86)'
+                  'rgb(255, 0, 137)',
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)',
+                          'rgb(0, 255, 0)',
+                          'rgb(51,51,255)',
+                          'rgb(255,255,0)',
                 ],
-                // borderColor: [
-                //   'green',
-                //   'purple',
-                //   'orange',
-                //   'red',
-                //   'blue',
-                //   'yellow',
-                // ],
                 borderWidth: 1,
               },
             ],
@@ -64,12 +55,12 @@ const BarChart = () => {
   }, []);
 
   return (
-    <div>
+    <center>
+    <div id="pie">
       {dataLoaded ? (
         <Pie
         width={200} // Set the width of the Pie chart to 200px
         height={200} // Set the height of the Pie chart to 200px
-      
           data={chartData}
           options={{
             indexAxis: 'x', // Use index scale for x-axis
@@ -79,6 +70,7 @@ const BarChart = () => {
         <p>Loading...</p>
       )}
     </div>
+    </center>
   );
 }
 

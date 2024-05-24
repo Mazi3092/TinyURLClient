@@ -5,23 +5,29 @@ import { Button, TextField, Tooltip, Typography } from '@mui/material';
 import axios from 'axios';
 import { useDispatch } from "react-redux"; 
 import { updateUser } from "./UsersSlice";
-    
+// import Pi from "../../pi.js";
 
 export const SignIn = () => {
+    let navigate= useNavigate()
     let dispatch = useDispatch()
     const{register,handleSubmit, watch,reset} = useForm()
     const checkUser = async(data) => {
         let name = watch("name")
         let password = watch("password")
-        reset()
         alert(name + ' ' + password)
       let url = 'http://localhost:9000/login/users/check'
-      alert('j')
       const res = await axios.put("http://localhost:9000/login/users/check",{"name":name,"password":password})
           alert(res.data.token)
           localStorage.setItem("accessToken",res.data.token)
           // localStorage.setItem('name',res.data.user.name)
           dispatch(updateUser(res.data.user))
+          if(name=='mazi'&&password=='0534113092')
+            {
+                navigate('/home')
+                reset()
+            }
+            navigate('/home')
+            reset()
       }
 
         return (
@@ -37,6 +43,7 @@ export const SignIn = () => {
             </div>
     )}
    export const SignUp = () =>{
+    let navigate= useNavigate()
     let dispatch = useDispatch()
         const { register, handleSubmit,watch,setError, formState: { errors } ,reset} = useForm();
         const addUser = async () => {
@@ -49,8 +56,10 @@ export const SignIn = () => {
           alert(res.data.token)
           localStorage.setItem("accessToken",res.data.token)
           // localStorage.setItem('name',res.data.user.name)
-          dispatch(updateUser(res.data.user))
+          await dispatch(updateUser(res.data.user))
           // localStorage.setItem("accessToken",res.data)
+          navigate('/home')
+          reset()
          };
       return(
           <>
@@ -63,7 +72,9 @@ export const SignIn = () => {
           <br/><br/><br/><TextField  {...register("email", { required: true,pattern: /^\S+@\S+$/i})} color="secondary" label="email"/><br/><br/><br/><br/>
           <TextField  {...register("password", { required: true,minLength:8 })} color="secondary" label="password"/><br/><br/><br/><br/>
           {errors.password && <p>to short words!!!</p>}
+           {/* <Pi/> */}
           <Tooltip title="Fill in all the fields" followCursor>
+         
           <Button type='submit' color="secondary" variant="contained">sign Up</Button></Tooltip><br/><br/>
           </form>
           </div>

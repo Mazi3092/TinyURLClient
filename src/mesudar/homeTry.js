@@ -25,7 +25,8 @@ const home = () =>{
         <div className="addLink">
          <form onSubmit={handleSubmit(addLink)}>
         <AddLinkIcon/> Enter a long URL to make a TinyURL
-        <TextField {...register("originalUrl",{required:true})} color="secondary" fullWidth label="originalUrl"/><br/><br/><br/>
+        {/* <text */}
+        <TextField {...register("originalUrl",{required:true})} color="" fullWidth label="originalUrl"/><br/><br/><br/>
         <EditIcon/> Customize your link<br/>
         <TextField {...register("uniqueName" ,{minLength:3,maxLength:15},{require:true})} color="secondary" label="uniqueName"/><br/>
         {errors.uniqueName && <p>between 3-15!!!</p>}

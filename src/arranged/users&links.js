@@ -1,7 +1,6 @@
-import { Accordion, AccordionDetails, AccordionSummary, AppBar, Avatar, Box, Button, CssBaseline, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, TableContainer, Toolbar, Tooltip, Typography, useScrollTrigger } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Alert, AppBar, Avatar, Box, Button, CssBaseline, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, TableContainer, Toolbar, Tooltip, Typography, useScrollTrigger } from "@mui/material";
 import axios from "axios";
 import React from "react";
-import '../style.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
@@ -10,6 +9,7 @@ import { Link } from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { margin } from "@mui/system";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import '../style.css'
 
 const StyledFab = styled(Fab)({
     position: 'absolute',
@@ -19,7 +19,7 @@ const StyledFab = styled(Fab)({
     right: 0,
     margin: '0 auto',
   });
-export default class Users extends React.Component{
+export default class UsersAndLinks extends React.Component{
     state = {
         users:[],
         links:[],
@@ -34,50 +34,52 @@ export default class Users extends React.Component{
     componentDidUpdate(){
         axios.get(`http://localhost:9000/users`,{headers:{authorization: localStorage.getItem('accessToken')}})
         .then(res=>{
-            const users = res.data;
+            const users = res.data
             this.setState({users})
         })
     }
     
     render(){
       const delUser = async(id) =>{
-        alert("del user")
-        const res = await axios.delete(`http://localhost:9000/users/` + id)
+        alert(id)
+        const res = await axios.delete(`http://localhost:9000/users/` + id,{headers:{authorization:localStorage.getItem('accessToken')}})
       }
       const delAll = async() =>{
         alert("all")
-        const res = await axios.delete(`http://localhost:9000/users`)
+        const res = await axios.delete(`http://localhost:9000/users`,{headers:{authorization:localStorage.getItem('accessToken')}})
       }
       const delLink = async(idLink,idUser) =>{
-       const resUser = await axios.put(`http://localhost:9000/users/` ,{"userId":idUser,"linkId":idLink})
+       const resUser = await axios.put(`http://localhost:9000/users`,{headers:{authorization:localStorage.getItem('accessToken')},"userId":idUser,"linkId":idLink})
       }
         return(
             <>
              <React.Fragment>
       <CssBaseline />
       <center> 
-      <Typography id="spa" color="secondary" variant="h4">users & links</Typography>
+      <Typography id="users-and-links-title" color="secondary" variant="h4">users & links</Typography>
       {this.state.users.length==0?<Typography color="secondary" variant="p">לא נמצאו משתמשים<WarningAmberIcon/></Typography>:
         <div className="paper">
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 464}}>
         {this.state.users.map(user =>
          <Accordion>
          <AccordionSummary expandIcon={<ExpandMoreIcon />}aria-controls="panel1a-content"id="panel1a-header">
-        <Avatar alt="Profile Picture"/><ListItemText secondary={user.email}/>
-        <div className="space"></div><Button color="secondary" variant="outlined" startIcon={<DeleteIcon onClick={()=>delUser(user.id)}/>}>Delete</Button>
+        <Avatar src={user.profile} alt="Profile Picture"/><ListItemText secondary={user.email}/>
+       <Button color="secondary" variant="outlined" startIcon={<DeleteIcon onClick={()=>delUser(user.id)}/>}>Delete</Button>
          </AccordionSummary>
          <AccordionDetails>
            <Typography>
-            {user.links.length==0 ? <Typography color="secondary" variant="p">למשתמש זה עדיין אין קישורים במערכת<WarningAmberIcon/></Typography>:
+            {user.links.length==0 ?  
+            <p>למשתמש זה עדיין אין קישורים במערכת<WarningAmberIcon/></p>:
             <ul dir="rtl">
                 {user.links.map(link=>
-                <li><Link color="secondary" target="_blank" title={link.originalUrl} to={link.originalUrl}>
-                  {link.uniqueName}</Link>
+                <li>
+                  {/* <Link color="secondary" target="_blank" title={link.originalUrl} to={link.originalUrl}>{link}</Link> */}
+                  <p color="secondary">{link}
                   <Tooltip title="Delete">
                             <IconButton>
-                                <DeleteIcon color="secondary" onClick={()=>delLink(link._id,user.id)}/>
+                                <DeleteIcon color="secondary" onClick={()=>delLink(link,user.id)}/>
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip></p>
                   </li>
                 )}
             </ul>}
@@ -85,11 +87,11 @@ export default class Users extends React.Component{
          </AccordionDetails>
        </Accordion>
             )}
-      <div className="bpaper">
+      <div className="bottom-paper">
       <AppBar position="static" color="secondary">
         <Toolbar color="secondary">    
           <StyledFab color="default" aria-label="add">
-            <Link to="/signUp"><AddIcon/></Link>
+            <Link to="/signUp"><AddIcon sx={{marginTop:'5px'}}/></Link>
           </StyledFab>
           <DeleteIcon onClick={delAll}/><h4>delete all</h4>
           {/* <Box sx={{ flexGrow: 1 }} /> */}

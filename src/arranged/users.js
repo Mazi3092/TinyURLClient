@@ -1,9 +1,9 @@
 import { Avatar, Button, IconButton, TableContainer, Tooltip, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
-import '../style.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import '../style.css'
 
 export default class Users extends React.Component{
     state = {
@@ -25,34 +25,40 @@ export default class Users extends React.Component{
     }
     render(){
         const del = async(id) =>{
-            alert(id)
-            const res = await axios.delete(`http://localhost:9000/users/` + id)
+            const res = await axios.delete(`http://localhost:9000/users/` + id,{headers:{authorization:localStorage.getItem('accessToken')}})
         }
         const delAll = async() =>{
-            alert("all")
-           const res = await axios.delete(`http://localhost:9000/users`)
+            const res = await axios.delete(`http://localhost:9000/users`,{headers:{authorization:localStorage.getItem('accessToken')}})
         }
         return(
             <>
                 <center>
-                <Typography color="secondary" variant="h4">users</Typography>
-                <div className="paper" id="tt">
-      <TableContainer sx={{ maxHeight: 440 }}>
+                <Typography id="space" color="secondary" variant="h4">users</Typography>
+                <div className="paper" id="users-paper">
+      <TableContainer sx={{ maxHeight: 500 }}>
          {this.state.users.length==0?<Typography color="secondary" variant="p">לא נמצאו משתמשים<WarningAmberIcon/></Typography>:
-                   <div className="i"> {this.state.users.map(user=>
-                    <div className="users">
-                    <p><Avatar>{user.name[0]}</Avatar> {user.name}</p>
-                    <p> {user.email}</p>
-                    <Tooltip title="Delete">
-                            <IconButton>
-                                <DeleteIcon color="secondary" onClick={()=>del(user.id)}/>
-                            </IconButton>
-                        </Tooltip>
+                   <div className="padding-top"> 
+                   {this.state.users.map(user=>
+                    <div className="user-item">
+                    <div className="user-left">
+                      <Avatar src={user.profile}>{user.name[0]}</Avatar>
+                      <span>{user.name}</span>
                     </div>
+                    <div className="user-center">
+                      <span>{user.email}</span>
+                    </div>
+                    <div className="user-right">
+                      <Tooltip title="Delete">
+                        <IconButton onClick={() => del(user.id)}>
+                          <DeleteIcon color="secondary" />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
+                  </div>
                  )}
                 </div> }
                 </TableContainer></div>
-      <div className="bpaper" id = "tt">
+      <div style={{bottom:'10px'}} className="bottom-paper">
       <Button color="secondary" variant="contained" onClick={delAll}>מחק הכל</Button>
 </div>
                 </center>

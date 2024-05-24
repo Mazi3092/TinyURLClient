@@ -1,100 +1,152 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import PersonIcon from '@mui/icons-material/Person';
-import AddIcon from '@mui/icons-material/Add';
-import Typography from '@mui/material/Typography';
-import { blue } from '@mui/material/colors';
+import React, { Component } from 'react';
+import './FormStyles.css';
+import axios from 'axios';
+import { Avatar, Badge, Button, IconButton, TableContainer, Tooltip, Typography } from "@mui/material";
+import '../style.css'
+import DeleteIcon from '@mui/icons-material/Delete';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { format } from "date-fns";
+import MailIcon from '@mui/icons-material/Mail';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-
-function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
-
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
-
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set backup account</DialogTitle>
-      <List sx={{ pt: 0 }}>
-        {emails.map((email) => (
-          <ListItem disableGutters>
-            <ListItemButton onClick={() => handleListItemClick(email)} key={email}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                  <PersonIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={email} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-
-        <ListItem disableGutters>
-          <ListItemButton
-            autoFocus
-            onClick={() => handleListItemClick('addAccount')}
-          >
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Add account" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Dialog>
-  );
+export default class Mail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSidebarOpen: false,
+      activeTab: 'inbox',
+      mailbox:{
+        Inbox:[],
+        Outbox:[],
+    }
+    };
+  }
+  componentDidMount(){
+    axios.get(`http://localhost:9000/users/mailbox`,{headers:{authorization:localStorage.getItem('accessToken')}})
+    .then(res=>{
+        const mailbox = res.data;
+        console.log(mailbox)
+        this.setState({mailbox})
+    })
+}
+componentDidUpdate(){
+    axios.get(`http://localhost:9000/users/mailbox`,{headers:{authorization:localStorage.getItem('accessToken')}})
+    .then(res=>{
+        const mailbox = res.data;
+        console.log(mailbox)
+        this.setState({mailbox})
+    })
 }
 
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
-
-export default function SimpleDialogDemo() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  toggleSidebar = () => {
+    this.setState((prevState) => ({
+      isSidebarOpen: !prevState.isSidebarOpen
+    }));
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
+  closeSidebar = () => {
+    this.setState({
+      isSidebarOpen: false
+    });
   };
 
-  return (
-    <div>
-      <Typography variant="subtitle1" component="div">
-        Selected: {selectedValue}
-      </Typography>
-      <br />
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open simple dialog
-      </Button>
-      <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-      />
-    </div>
-  );
+  setActiveTab = (tab) => {
+    this.setState({
+      activeTab: tab
+    });
+  };
+
+  renderContent = () => {
+    const { activeTab } = this.state;
+    switch (activeTab) {
+      case 'inbox':
+        return <div>תיבת דואר נכנס</div>;
+      case 'sent':
+        return <div>תיבת דואר יוצא</div>;
+      default:
+        return null;
+    }
+  };
+
+  render() {
+    const del = async(id) =>{
+      alert(id)
+      const res = await axios.delete(`http://localhost:9000/users/` + id)
+  }
+  const delAll = async() =>{
+      alert("all")
+     const res = await axios.delete(`http://localhost:9000/users`)
+  }
+    const { isSidebarOpen, activeTab } = this.state;
+
+    return (
+      <>
+      <IconButton onClick={this.toggleSidebar} className="toggle-button" size="large"color="inherit">
+      <Badge badgeContent={4} color="error">
+        <MailIcon />
+      </Badge>
+    </IconButton>
+        {/* <button onClick={this.toggleSidebar} className="toggle-button">
+          תיבת הדואר הנכנס
+        </button> */}
+      <div className="App">
+        {isSidebarOpen && (
+          <div className="sidebar">
+            <div className="tabs">
+        <Button onClick={() => this.setActiveTab('inbox')} type='submit'  color="secondary" variant="contained">תיבת דואר נכנס</Button>
+        <Button onClick={() => this.setActiveTab('sent')} type='submit' color="secondary" variant="contained">תיבת דואר יוצא</Button>
+
+              {/* <button onClick={() => this.setActiveTab('inbox')} className={`tab-button ${activeTab === 'inbox' ? 'active' : ''}`}>
+                תיבת דואר נכנס
+              </button>
+              <button onClick={() => this.setActiveTab('sent')} className={`tab-button ${activeTab === 'sent' ? 'active' : ''}`}>
+                תיבת דואר יוצא
+              </button> */}
+            </div>
+            <div className="tab-content">
+                <Typography color="secondary" variant="h4">mailbox</Typography>
+                <center>
+                <div>
+                {/* <div className="paper" id="users-paper"> */}
+      <TableContainer sx={{ maxHeight: 440 }}>
+      {activeTab=='inbox'?
+                <>
+         {this.state.mailbox.Inbox.length==0?<Typography color="secondary" variant="p">לא נמצאו הודעות נכנסות<WarningAmberIcon/></Typography>:
+                   <> <h1 style={{color:'black'}}>הודעות נכנסות</h1>
+                    {this.state.mailbox.Inbox.map(message=>
+                    <div style={{color:"black"}} className="message-item">
+                        <div className="user-right"> <p>{message.from.name}</p></div>
+                        <div className="user-center"><p>{message.text}</p></div>
+                        {message.date==''?'':
+                       <>
+                        {format(new Date(message.date), 'dd/MM/yyyy')}<br/>
+                         {format(new Date(message.date), 'HH:mm:ss')}
+                         </> }
+                        </div>
+                 )} </>}</>:<>
+                {this.state.mailbox.Outbox.length==0?<Typography color="secondary" variant="p">לא נמצאו הודעות יוצאות<WarningAmberIcon/></Typography>:
+                   <> <h1 style={{color:'black'}} >הודעות יוצאות</h1>
+                   {this.state.mailbox.Outbox.map(message=>
+                    <div style={{color:"black"}} className="message-item">
+                        <div className="user-right"> <p>{message.to.name}</p></div>
+                        <div className="user-center"><p>{message.text}</p></div>
+                        {message.date==''?'':
+                       <>  {format(new Date(message.date), 'dd/MM/yyyy')}<br/>
+                         {format(new Date(message.date), 'HH:mm:ss')}
+                       </> }
+                    </div>
+                 )} </>}
+                 </>
+              }
+                </TableContainer>
+                </div>
+                </center>
+        <Button sx={{position:'absolute',bottom:'3vh',right:'9vw'}} onClick={this.closeSidebar}  type='submit'  color="secondary" variant="contained">ביטול</Button>
+            </div>
+          </div>
+
+        )}
+      </div>
+      </>
+    );
+  }
 }

@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form'
 import { Search, SearchOff, StackedBarChartOutlined } from '@mui/icons-material';
 // import GlobalVariableExample from './GlobalVariableExample';
 
-const signUp = () =>{
+const SignUp = () =>{
       const { register, handleSubmit,watch,setError, formState: { errors } } = useForm();
       const addUser = async () => {
         let name = watch("firstName")
@@ -35,4 +35,4 @@ const signUp = () =>{
     )
 
 }
-export default signUp
+export default SignUp
